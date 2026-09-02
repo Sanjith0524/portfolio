@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Sanjith M — Computer Science engineer. AI-driven products and full-stack systems. Internships at ISRO and Clobas; creator of CabSy.">
+<title>Sanjith M — Engineer Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  :root{
+    color-scheme:dark;
+    --bg:#0F1313;
+    --surface:#161B1B;
+    --surface-2:#1F2626;
+    --ink:#E6EAEA;
+    --muted:#98A1A0;
+    --faint:#67706F;
+    --hairline:#283030;
+    --accent:#5CB6BB;
+    --accent-soft:#123231;
+    --warm:#C1A279;
+    --grid-line:rgba(230,234,234,0.05);
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 18px 40px -16px rgba(0,0,0,.6);
+    --display:"Bricolage Grotesque","IBM Plex Sans",system-ui,sans-serif;
+    --body:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:var(--body);font-size:16px;line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%}
+  a{color:inherit}
+  ::selection{background:var(--ink);color:var(--bg)}
+
+  #progress{
+    position:fixed;top:0;left:0;height:2px;width:0%;
+    background:var(--accent);z-index:100;transition:width .1s linear;
+  }
+
+  /* section rail nav */
+  .rail{
+    position:fixed;left:max(26px,calc(50% - 600px));top:50%;
+    transform:translateY(-50%);z-index:50;
+    display:flex;flex-direction:column;gap:20px;
+  }
+  .rail a{
+    display:flex;align-items:center;gap:14px;
+    font-family:var(--mono);font-size:13px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--faint);text-decoration:none;
+  }
+  .rail a .dot{
+    width:10px;height:10px;border-radius:50%;
+    background:var(--hairline);transition:all .25s ease;flex:none;
+  }
+  .rail a .label{opacity:0;transform:translateX(-4px);transition:all .25s ease}
+  .rail a:hover .label,.rail a.active .label{opacity:1;transform:none}
+  .rail a:hover .dot{background:var(--muted)}
+  .rail a.active{color:var(--ink)}
+  .rail a.active .dot{background:var(--accent);box-shadow:0 0 0 5px var(--accent-soft)}
+  @media (max-width:1180px){.rail{display:none}}
+
+  /* layout — centered */
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px;text-align:center}
+  section{padding:62px 0;border-top:1px solid var(--hairline)}
+  section:first-of-type{border-top:0}
+
+  .eyebrow{
+    font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--faint);
+    display:flex;align-items:center;justify-content:center;gap:10px;margin:0 0 18px;
+  }
+  .eyebrow::before,.eyebrow::after{content:"";width:16px;height:1px;background:var(--hairline)}
+
+  h1,h2,h3{font-family:var(--display);font-weight:600;text-wrap:balance;line-height:1.14;margin:0}
+  h2{font-size:clamp(1.4rem,2.8vw,1.7rem);letter-spacing:-0.01em;margin-bottom:28px}
+  p{margin:0 0 1rem}
+  .lead{color:var(--muted);font-size:1rem;max-width:56ch;margin-left:auto;margin-right:auto}
+
+  /* hero */
+  .hero{position:relative;padding:112px 0 66px;overflow:hidden;border-top:0}
+  .hero-glow{
+    position:absolute;left:50%;top:-8%;width:520px;height:340px;
+    transform:translateX(-50%);z-index:0;pointer-events:none;
+    background:radial-gradient(ellipse at center,var(--accent-soft),transparent 70%);
+    opacity:.6;
+  }
+  .hero .wrap{position:relative;z-index:1}
+  .hero .kicker{
+    font-family:var(--mono);font-size:12.5px;color:var(--muted);
+    letter-spacing:.01em;margin:0 0 18px;white-space:nowrap;
+  }
+  @media (max-width:680px){.hero .kicker{white-space:normal}}
+  .hero .kicker b{color:var(--ink);font-weight:500}
+  .hero h1{
+    font-size:clamp(2.1rem,4.6vw,2.9rem);letter-spacing:-0.02em;font-weight:600;margin-bottom:18px;
+  }
+  .hero .statement{
+    font-size:clamp(1.02rem,2vw,1.18rem);color:var(--muted);line-height:1.55;
+    max-width:40ch;margin:0 auto 28px;
+  }
+  .hero .statement b{color:var(--ink);font-weight:500}
+  .cta-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center}
+  .btn{
+    font-family:var(--mono);font-size:12.5px;letter-spacing:.02em;text-decoration:none;
+    padding:10px 17px;border-radius:6px;display:inline-flex;align-items:center;gap:8px;
+    transition:transform .15s ease,border-color .2s ease,color .2s ease,filter .2s ease;
+  }
+  .btn.primary{background:var(--accent);color:#0C1111;font-weight:500;border:1px solid var(--accent)}
+  .btn.primary:hover{transform:translateY(-2px);filter:brightness(1.08)}
+  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--hairline)}
+  .btn.ghost:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+
+  .facts{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+    background:var(--hairline);border:1px solid var(--hairline);border-radius:8px;
+    overflow:hidden;margin-top:42px;
+  }
+  .facts div{background:var(--surface);padding:16px 14px}
+  .facts .n{font-family:var(--display);font-size:1.3rem;font-weight:600;letter-spacing:-.01em}
+  .facts .n .u{color:var(--warm);font-weight:500}
+  .facts .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);margin-top:3px}
+  @media (max-width:560px){.facts{grid-template-columns:1fr}}
+
+  /* experience */
+  .job{padding:34px 0 0}
+  .job:first-of-type{padding-top:0}
+  .job + .job{border-top:1px solid var(--hairline)}
+  .job .when{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.03em}
+  .job h3{font-size:1.16rem;margin:8px 0 3px}
+  .job .org{color:var(--muted);font-size:.93rem}
+  .job .org b{color:var(--accent);font-weight:600}
+
+  .job.featured{
+    background:var(--surface);border:1px solid var(--accent);
+    border-radius:12px;padding:26px 24px;margin-bottom:34px;
+    box-shadow:var(--shadow);
+  }
+  .job.featured + .job{border-top:0}
+  .job .org .sep{color:var(--faint);margin:0 8px}
+  .job ul{
+    margin:16px auto 0;padding:0;list-style:none;max-width:520px;text-align:left;
+    display:flex;flex-direction:column;gap:9px;
+  }
+  .job li{position:relative;padding-left:18px;color:var(--muted);font-size:.95rem}
+  .job li::before{content:"–";position:absolute;left:0;color:var(--accent)}
+  .job li b{color:var(--ink);font-weight:600}
+  .stack{margin-top:16px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+  .chip{
+    font-family:var(--mono);font-size:11px;letter-spacing:.02em;color:var(--muted);
+    background:var(--surface-2);border:1px solid var(--hairline);border-radius:4px;padding:4px 8px;
+    transition:border-color .2s ease,color .2s ease;
+  }
+  .chip:hover{border-color:var(--accent);color:var(--ink)}
+
+  /* projects */
+  .project{
+    background:var(--surface);border:1px solid var(--hairline);border-radius:10px;
+    padding:26px 24px;box-shadow:var(--shadow);
+    transition:transform .2s ease,border-color .2s ease;
+  }
+  .project:hover{transform:translateY(-3px);border-color:var(--accent)}
+  .project .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+  .project h3{font-size:1.22rem;margin:8px 0 0}
+  .project p{color:var(--muted);font-size:.95rem;margin:12px auto 0;max-width:56ch;text-align:left}
+  .project .metrics{
+    display:flex;flex-wrap:wrap;gap:20px 26px;justify-content:center;
+    margin-top:20px;padding-top:18px;border-top:1px solid var(--hairline);
+  }
+  .project .metrics .m{font-family:var(--display);font-weight:600;font-size:1.08rem}
+  .project .metrics .ml{font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--faint)}
+
+  /* skills */
+  .skillrow{padding:18px 0;border-top:1px solid var(--hairline)}
+  .skillrow:last-child{border-bottom:1px solid var(--hairline)}
+  .skillrow .cat{
+    display:block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--faint);margin-bottom:11px;
+  }
+  .skillrow .items{display:flex;flex-wrap:wrap;gap:7px;justify-content:center}
+
+  /* certs */
+  .certs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .certs div{
+    font-size:.9rem;color:var(--muted);border:1px solid var(--hairline);
+    border-radius:8px;padding:14px 16px;background:var(--surface);
+    transition:border-color .2s ease;
+  }
+  .certs div:hover{border-color:var(--accent)}
+  @media (max-width:560px){.certs{grid-template-columns:1fr}}
+
+  /* contact */
+  #contact{padding-bottom:92px}
+  #contact .lead{margin-bottom:22px}
+  .contact-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+  .contact-grid a{
+    text-decoration:none;font-family:var(--mono);font-size:12.5px;
+    border:1px solid var(--hairline);border-radius:6px;padding:11px 15px;
+    color:var(--ink);background:var(--surface);
+    transition:border-color .2s ease,color .2s ease,transform .15s ease;
+  }
+  .contact-grid a:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+  .foot{margin-top:38px;font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.03em}
+
+  @media (prefers-reduced-motion:no-preference){
+    .rise{animation:rise .6s cubic-bezier(.2,.7,.2,1) both}
+    .rise:nth-child(2){animation-delay:.05s}
+    .rise:nth-child(3){animation-delay:.1s}
+    .rise:nth-child(4){animation-delay:.15s}
+    @keyframes rise{from{opacity:.35;transform:translateY(10px)}to{opacity:1;transform:none}}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .btn:hover,.project:hover,.contact-grid a:hover{transform:none}
+  }
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<nav class="rail" aria-label="Section navigation">
+  <a href="#top"><span class="dot"></span><span class="label">Intro</span></a>
+  <a href="#about"><span class="dot"></span><span class="label">About</span></a>
+  <a href="#experience"><span class="dot"></span><span class="label">Experience</span></a>
+  <a href="#projects"><span class="dot"></span><span class="label">Projects</span></a>
+  <a href="#skills"><span class="dot"></span><span class="label">Skills</span></a>
+  <a href="#certs"><span class="dot"></span><span class="label">Certifications</span></a>
+  <a href="#contact"><span class="dot"></span><span class="label">Contact</span></a>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="wrap">
+    <p class="kicker rise">B.Tech CSE &nbsp;·&nbsp; <b>Vellore Institute of Technology, Vellore</b> &nbsp;·&nbsp; Tamil Nadu, India</p>
+    <h1 class="rise">Sanjith M</h1>
+    <p class="statement rise">I turn messy real-world workflows into software people actually use — usually where a <b>language model</b> meets a <b>database</b>.</p>
+    <div class="cta-row rise">
+      <a class="btn primary" href="#projects">View selected work</a>
+      <a class="btn ghost" href="mailto:sanjith.m024@gmail.com">sanjith.m024@gmail.com</a>
+    </div>
+    <div class="facts">
+      <div><div class="n">9.15<span class="u"> CGPA</span></div><div class="k">VIT · 2023–present</div></div>
+      <div><div class="n" style="color:var(--accent)">ISRO</div><div class="k">Software dev intern · 2026</div></div>
+      <div><div class="n">400<span class="u">+</span></div><div class="k">Users on a shipped product</div></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="about">
+    <p class="eyebrow">About</p>
+    <h2>A CS undergrad who likes to build</h2>
+    <p class="lead">I'm a third-year Computer Science student at VIT Vellore, drawn to the space where AI, data and full-stack engineering meet. Most of what I know comes from building things end-to-end — designing the schema, wiring the backend, and shaping an interface people can actually use.</p>
+    <p class="lead">I care about clean data models, low latency, and interfaces that don't need a manual. I'm comfortable moving across the stack, picking up new tools quickly, and shipping something that works rather than something that only demos well.</p>
+  </section>
+
+  <section id="experience">
+    <p class="eyebrow">Experience</p>
+    <h2>Where I've shipped production software</h2>
+
+    <div class="job featured">
+      <div class="when">May 2026 – July 2026</div>
+      <h3>SEPO Web Portal</h3>
+      <div class="org">Software Development Intern <span class="sep">/</span> <b>ISRO</b> — Science &amp; Space Exploration Programme Office</div>
+      <ul>
+        <li>Owned the build of an internal portal that replaced a scatter of spreadsheets and email threads for the Programme Office — one place for projects, people, publications and paperwork.</li>
+        <li>Shipped <b>10+ modules</b> — project tracking, personnel records, reference-paper management, document management, admin dashboards — behind <b>role-based access</b>, working across desktop and mobile.</li>
+        <li>Modelled the relational schema behind <b>1,000+ records</b> and tightened the CRUD and query paths; the office estimated it cut manual admin work by <b>60–70%</b>.</li>
+        <li>Demoed every iteration to the <b>SEPO Programme Director</b> and folded his feedback straight into the next release.</li>
+      </ul>
+      <div class="stack">
+        <span class="chip">Python</span><span class="chip">Django</span><span class="chip">JavaScript</span>
+        <span class="chip">HTML / CSS</span><span class="chip">SQLite</span>
+      </div>
+    </div>
+
+    <div class="job">
+      <div class="when">May 2025 – July 2025</div>
+      <h3>AI-Driven SQL Chatbot</h3>
+      <div class="org">AI Development Intern <span class="sep">/</span> Clobas Private Limited — Chennai</div>
+      <ul>
+        <li>Built a chatbot that lets university staff query a <b>1,000+ student</b> database in plain English — no SQL required.</li>
+        <li>The core is a <b>text-to-SQL pipeline</b> on GPT-4o-mini that writes, runs and explains queries on the fly against PostgreSQL.</li>
+        <li>Added a dashboard that reads each result set and picks the chart — <b>bar, pie, line or scatter</b> — so answers come back as visuals, not just tables.</li>
+        <li>Spent most of the tuning budget on prompt design and query paths to keep responses <b>fast</b>.</li>
+      </ul>
+      <div class="stack">
+        <span class="chip">GPT-4o-mini</span><span class="chip">Streamlit</span><span class="chip">Python</span>
+        <span class="chip">PostgreSQL</span><span class="chip">Prompt engineering</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Built for my own campus, then handed to it</h2>
+
+    <div class="project">
+      <span class="tag">Full-stack · Serverless</span>
+      <h3>CabSy — shared-cab matching for one campus</h3>
+      <p>Splitting an Uber or Ola to the station only works if you can find someone going the same way. CabSy is a college-only platform for exactly that: sign in with a verified campus Google account, post or find a ride, manage seats, and coordinate with the people you're sharing with. The in-app chat is rate-limited to 25 messages per person and wipes itself after 24 hours — enough to sort out a pickup, not a place to hang out.</p>
+      <p>It runs entirely serverless on <b>Firebase Firestore</b> — real-time listeners, composite indexes, and security rules that check authentication and authorisation as separate gates. The <b>Next.js + TypeScript</b> front end sits on Vercel, and the whole thing holds 400+ students on the free tier at <b>₹0 running cost</b>.</p>
+      <div class="metrics">
+        <div><div class="m">400+</div><div class="ml">Students served</div></div>
+        <div><div class="m">9+</div><div class="ml">Core features</div></div>
+        <div><div class="m">₹0</div><div class="ml">Infra cost</div></div>
+        <div><div class="m">24 h</div><div class="ml">Chat message TTL</div></div>
+      </div>
+      <div class="stack">
+        <span class="chip">Next.js</span><span class="chip">TypeScript</span><span class="chip">Tailwind CSS</span>
+        <span class="chip">Firebase Firestore</span><span class="chip">Vercel</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <p class="eyebrow">Skills</p>
+    <h2>Toolbox</h2>
+    <div>
+      <div class="skillrow">
+        <span class="cat">Languages</span>
+        <div class="items">
+          <span class="chip">Python</span><span class="chip">Java</span><span class="chip">C++</span>
+          <span class="chip">JavaScript</span><span class="chip">C</span>
+        </div>
+      </div>
+      <div class="skillrow">
+        <span class="cat">Frameworks</span>
+        <div class="items">
+          <span class="chip">React.js</span><span class="chip">Node.js</span><span class="chip">Django</span>
+          <span class="chip">Streamlit</span><span class="chip">REST APIs</span><span class="chip">HTML / CSS</span>
+        </div>
+      </div>
+      <div class="skillrow">
+        <span class="cat">Data &amp; Cloud</span>
+        <div class="items">
+          <span class="chip">PostgreSQL</span><span class="chip">MySQL</span><span class="chip">MongoDB</span>
+          <span class="chip">SQLite</span><span class="chip">Firebase</span><span class="chip">AWS</span><span class="chip">GCP</span>
+        </div>
+      </div>
+      <div class="skillrow">
+        <span class="cat">AI / ML</span>
+        <div class="items">
+          <span class="chip">LLMs</span><span class="chip">RAG</span><span class="chip">Scikit-learn</span>
+          <span class="chip">Text-to-SQL</span><span class="chip">Prompt engineering</span>
+        </div>
+      </div>
+      <div class="skillrow">
+        <span class="cat">Foundations</span>
+        <div class="items">
+          <span class="chip">Data Structures &amp; Algorithms</span><span class="chip">OOP</span><span class="chip">DBMS</span>
+          <span class="chip">Operating Systems</span><span class="chip">Computer Networks</span><span class="chip">Git / GitHub</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="certs">
+    <p class="eyebrow">Certifications</p>
+    <div class="certs">
+      <div>IIT Indore — Gen AI &amp; Data Science</div>
+      <div>Microsoft — SQL</div>
+      <div>Linux Essentials</div>
+      <div>n8n — KodeKloud</div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <p class="eyebrow">Contact</p>
+    <h2>Let's talk</h2>
+    <p class="lead">Open to software engineering and AI / ML roles. The fastest way to reach me is email — I usually reply the same day.</p>
+    <div class="contact-grid">
+      <a href="mailto:sanjith.m024@gmail.com">sanjith.m024@gmail.com</a>
+      <a href="tel:+919443349511">+91 94433 49511</a>
+      <a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/Sanjith0524" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <p class="foot">Sanjith M · Tamil Nadu, India</p>
+  </section>
+
+</main>
+
+<script>
+(function(){
+  var bar=document.getElementById("progress");
+  function onScroll(){
+    var h=document.documentElement;
+    var max=h.scrollHeight-h.clientHeight;
+    bar.style.width=(max>0?(h.scrollTop/max*100):0)+"%";
+  }
+  window.addEventListener("scroll",onScroll,{passive:true});
+  onScroll();
+
+  var links=Array.prototype.slice.call(document.querySelectorAll(".rail a"));
+  var map={};
+  links.forEach(function(l){map[l.getAttribute("href").slice(1)]=l;});
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        links.forEach(function(l){l.classList.remove("active");});
+        var m=map[en.target.id];
+        if(m)m.classList.add("active");
+      }
+    });
+  },{rootMargin:"-45% 0px -50% 0px"});
+  document.querySelectorAll("section, header#top").forEach(function(s){obs.observe(s);});
+})();
+</script>
+
+</body>
+</html>
