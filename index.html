@@ -318,17 +318,18 @@
     <div class="project">
       <span class="tag">Full-stack · Serverless</span>
       <h3>CabSy — shared-cab matching for one campus</h3>
-      <p>Splitting an Uber or Ola to the station only works if you can find someone going the same way. CabSy is a college-only platform for exactly that: sign in with a verified campus Google account, post or find a ride, manage seats, and coordinate with the people you're sharing with. The in-app chat is rate-limited to 25 messages per person and wipes itself after 24 hours — enough to sort out a pickup, not a place to hang out.</p>
-      <p>It runs entirely serverless on <b>Firebase Firestore</b> — real-time listeners, composite indexes, and security rules that check authentication and authorisation as separate gates. The <b>Next.js + TypeScript</b> front end sits on Vercel, and the whole thing holds 400+ students on the free tier at <b>₹0 running cost</b>.</p>
+      <p>Splitting an Uber or Ola to the station only works if you can find someone going the same way. CabSy is a college-only platform for exactly that — 400+ students use it to find compatible ride partners. It ships 9+ core features: domain-restricted email sign-in with OTP-based 2FA, ride creation with seat management, real-time ride discovery, a ride-joining system with member management, and a rate-limited in-app chat capped at 25 messages per user.</p>
+      <p>The backend is serverless — <b>Next.js API route handlers over Turso</b>, on a normalised relational schema with indexed queries and write transactions for atomic seat allocation. Every endpoint checks authentication and authorisation separately: it verifies a signed <b>JWT session</b> and ride membership before returning any ride-private data, with access limited to verified college email domains.</p>
+      <p>The <b>Next.js + TypeScript</b> front end with Tailwind CSS is deployed on Vercel at <b>₹0 running cost</b>, built to scale to 400+ concurrent users on the free tiers of Vercel and Turso alone.</p>
       <div class="metrics">
         <div><div class="m">400+</div><div class="ml">Students served</div></div>
         <div><div class="m">9+</div><div class="ml">Core features</div></div>
         <div><div class="m">₹0</div><div class="ml">Infra cost</div></div>
-        <div><div class="m">24 h</div><div class="ml">Chat message TTL</div></div>
+        <div><div class="m">25</div><div class="ml">Chat cap / user</div></div>
       </div>
       <div class="stack">
         <span class="chip">Next.js</span><span class="chip">TypeScript</span><span class="chip">Tailwind CSS</span>
-        <span class="chip">Firebase Firestore</span><span class="chip">Vercel</span>
+        <span class="chip">Turso (SQLite)</span><span class="chip">JWT auth</span><span class="chip">Vercel</span>
       </div>
       <a class="visit" href="https://cabsy-demo-10.vercel.app/" target="_blank" rel="noopener">Visit the live demo</a>
     </div>
