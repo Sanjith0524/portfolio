@@ -187,14 +187,13 @@
   .skillrow .items{display:flex;flex-wrap:wrap;gap:7px;justify-content:center}
 
   /* certs */
-  .certs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .certs{display:flex;flex-direction:column;gap:10px;max-width:460px;margin:0 auto}
   .certs div{
     font-size:.9rem;color:var(--muted);border:1px solid var(--hairline);
-    border-radius:8px;padding:14px 16px;background:var(--surface);
+    border-radius:8px;padding:14px 18px;background:var(--surface);
     transition:border-color .2s ease;
   }
   .certs div:hover{border-color:var(--accent)}
-  @media (max-width:560px){.certs{grid-template-columns:1fr}}
 
   /* contact */
   #contact{padding-bottom:92px}
@@ -366,7 +365,7 @@
   <section id="certs">
     <p class="eyebrow">Certifications</p>
     <div class="certs">
-      <div>IIT Indore — Gen AI &amp; Data Science</div>
+      <div>Executive Professional Certification Program in Generative AI &amp; Machine Learning — IITI DRISHTI CPS, IIT Indore</div>
       <div>Microsoft — SQL</div>
       <div>Linux Essentials</div>
       <div>n8n — KodeKloud</div>
