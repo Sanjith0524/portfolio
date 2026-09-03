@@ -177,6 +177,14 @@
   }
   .project .metrics .m{font-family:var(--display);font-weight:600;font-size:1.08rem}
   .project .metrics .ml{font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--faint)}
+  .project .visit{
+    display:inline-flex;align-items:center;gap:7px;margin-top:20px;
+    font-family:var(--mono);font-size:12px;letter-spacing:.03em;text-decoration:none;
+    color:var(--accent);border:1px solid var(--accent);border-radius:6px;padding:9px 16px;
+    transition:background .2s ease,color .2s ease,transform .15s ease;
+  }
+  .project .visit::after{content:"\2197"}
+  .project .visit:hover{background:var(--accent);color:#0C1111;transform:translateY(-2px)}
 
   /* skills */
   .skillrow{padding:18px 0;border-top:1px solid var(--hairline)}
@@ -322,6 +330,7 @@
         <span class="chip">Next.js</span><span class="chip">TypeScript</span><span class="chip">Tailwind CSS</span>
         <span class="chip">Firebase Firestore</span><span class="chip">Vercel</span>
       </div>
+      <a class="visit" href="https://cabsy-demo-10.vercel.app/" target="_blank" rel="noopener">Visit the live demo</a>
     </div>
   </section>
 
