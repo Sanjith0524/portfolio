@@ -178,10 +178,29 @@
     .rise{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
     .rise:nth-child(2){animation-delay:.06s}.rise:nth-child(3){animation-delay:.12s}.rise:nth-child(4){animation-delay:.18s}
     @keyframes rise{from{opacity:.4;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+    .js-reveal main section > .slabel,
+    .js-reveal main section > h2,
+    .js-reveal main section > .about-h,
+    .js-reveal main section > .about-p,
+    .js-reveal main section > .stack-line,
+    .js-reveal main section > .links,
+    .js-reveal main .work > .item,
+    .js-reveal main .skillgrid > .sgroup,
+    .js-reveal main .certs > .cert{
+      opacity:0;transform:translateY(22px);
+      transition:opacity .6s ease,transform .6s cubic-bezier(.22,.68,.28,1);
+    }
+    .js-reveal main section > .slabel{
+      transform:translateX(-14px);
+      transition:opacity .55s ease,transform .55s cubic-bezier(.22,.68,.28,1);
+    }
+    .js-reveal .r-in{opacity:1 !important;transform:none !important}
   }
 </style>
 </head>
 <body>
+<script>if(window.matchMedia&&!matchMedia("(prefers-reduced-motion:reduce)").matches)document.documentElement.className+=" js-reveal";</script>
 
 <div id="progress"></div>
 
@@ -204,14 +223,14 @@
 <main>
   <div class="wrap">
 
-    <section id="about" class="rise">
+    <section id="about">
       <p class="slabel">About</p>
       <h2 class="about-h">A CS undergrad who likes to build</h2>
       <p class="about-p">I'm a final-year Computer Science student at VIT Vellore, drawn to the space where AI, data and full-stack engineering meet. Most of what I know comes from building things end-to-end — designing the schema, wiring the backend, and shaping an interface people can actually use.</p>
       <p class="about-p">I care about clean data models, low latency, and interfaces that don't need a manual. I'm comfortable moving across the stack, picking up new tools quickly, and shipping something that works rather than something that only demos well.</p>
     </section>
 
-    <section id="experience" class="rise">
+    <section id="experience">
       <p class="slabel">Internships</p>
       <div class="work">
 
@@ -252,7 +271,7 @@
       </div>
     </section>
 
-    <section id="projects" class="rise">
+    <section id="projects">
       <p class="slabel">Projects</p>
       <div class="work">
 
@@ -280,7 +299,7 @@
       </div>
     </section>
 
-    <section id="stack" class="rise">
+    <section id="stack">
       <p class="slabel">Stack</p>
       <div class="skillgrid">
 
@@ -322,7 +341,7 @@
       </div>
     </section>
 
-    <section id="certs" class="rise">
+    <section id="certs">
       <p class="slabel">Certifications</p>
       <div class="certs">
         <a class="cert" href="https://drive.google.com/file/d/1HFJTjMH9x4QtRq_mQ1La5RqsIyi09fuH/view?usp=sharing" target="_blank" rel="noopener">
@@ -335,7 +354,7 @@
       </div>
     </section>
 
-    <section id="contact" class="contact rise">
+    <section id="contact" class="contact">
       <p class="slabel">Contact</p>
       <h2>Let's talk.</h2>
       <p class="stack-line" style="margin-bottom:22px">Open to software engineering and AI / ML roles. Email is fastest — I usually reply the same day.</p>
@@ -420,6 +439,35 @@
       document.addEventListener("visibilitychange",function(){
         running=!document.hidden;
       });
+    }
+  }
+
+  /* ---- scroll reveal: staggered fade + rise per section, label slides in ---- */
+  if(root.classList.contains("js-reveal")){
+    if(!("IntersectionObserver" in window)){
+      root.classList.remove("js-reveal");
+    } else {
+      try{
+        var rio=new IntersectionObserver(function(entries){
+          entries.forEach(function(en){
+            if(!en.isIntersecting) return;
+            en.target.style.transitionDelay=(en.target.getAttribute("data-rd")||0)+"ms";
+            en.target.classList.add("r-in");
+            rio.unobserve(en.target);
+          });
+        },{threshold:0.12,rootMargin:"0px 0px -6% 0px"});
+        var rsecs=document.querySelectorAll("main section");
+        for(var rs=0;rs<rsecs.length;rs++){
+          var g=rsecs[rs].querySelectorAll(
+            ":scope > .slabel, :scope > h2, :scope > .about-h, :scope > .about-p,"+
+            " :scope > .stack-line, :scope > .links,"+
+            " :scope > .work > .item, :scope > .skillgrid > .sgroup, :scope > .certs > .cert");
+          for(var gi=0;gi<g.length;gi++){
+            g[gi].setAttribute("data-rd", Math.min(gi*55,330));
+            rio.observe(g[gi]);
+          }
+        }
+      }catch(e){ root.classList.remove("js-reveal"); }
     }
   }
 
