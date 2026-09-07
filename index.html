@@ -41,6 +41,22 @@
   #progress{position:fixed;top:0;left:0;height:2px;width:var(--scroll);z-index:90;
     background:var(--acc);box-shadow:0 0 10px var(--acc);transition:width .1s linear;pointer-events:none}
 
+  /* background layers */
+  #bg-grid{
+    position:fixed;inset:0;z-index:0;pointer-events:none;
+    background-image:
+      linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+    background-size:44px 44px;background-position:center top;
+    -webkit-mask-image:radial-gradient(145% 105% at 50% 0%,#000 38%,transparent 88%);
+            mask-image:radial-gradient(145% 105% at 50% 0%,#000 38%,transparent 88%);
+  }
+  #spot{
+    position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(420px circle at var(--mx,50%) var(--my,6%),
+      rgba(255,106,61,.11),rgba(255,106,61,.035) 42%,transparent 72%);
+  }
+
   /* hero */
   .hero{
     position:relative;min-height:92svh;display:grid;
@@ -184,6 +200,8 @@
 <body>
 
 <div id="progress"></div>
+<div id="bg-grid" aria-hidden="true"></div>
+<div id="spot" aria-hidden="true"></div>
 
 <header class="hero" id="top">
   <div class="hero-copy">
@@ -360,6 +378,22 @@
     var max=root.scrollHeight-root.clientHeight;
     root.style.setProperty("--scroll",(max>0?root.scrollTop/max*100:0).toFixed(2)+"%");
   },{passive:true});
+
+  /* ---- cursor spotlight (fine pointers only) ---- */
+  if(window.matchMedia("(pointer:fine)").matches){
+    var tx=50, ty=6, cx=50, cy=6, sraf=0;
+    window.addEventListener("pointermove",function(e){
+      tx=e.clientX/window.innerWidth*100;
+      ty=e.clientY/window.innerHeight*100;
+      if(!sraf) sraf=requestAnimationFrame(spotTick);
+    },{passive:true});
+    function spotTick(){
+      cx+=(tx-cx)*.12; cy+=(ty-cy)*.12;
+      root.style.setProperty("--mx",cx.toFixed(2)+"%");
+      root.style.setProperty("--my",cy.toFixed(2)+"%");
+      sraf=(Math.abs(tx-cx)>.1||Math.abs(ty-cy)>.1)?requestAnimationFrame(spotTick):0;
+    }
+  }
 
   /* ---- hero: terminal text typed straight onto the page background ---- */
   var term=document.getElementById("term");
