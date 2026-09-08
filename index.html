@@ -144,7 +144,6 @@
   .sgroup .cat{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;
     color:var(--faint);margin:0 0 14px;display:flex;align-items:center;gap:10px}
   .sgroup .cat::before{content:"";width:16px;height:1px;background:var(--acc)}
-  .sgroup .cat i{font-style:normal;color:var(--acc);opacity:.75}
   .chips{display:flex;flex-wrap:wrap;gap:8px}
   .chips:hover .chip:not(:hover){opacity:.42}
   .chip{
@@ -304,37 +303,37 @@
       <div class="skillgrid">
 
         <div class="sgroup">
-          <p class="cat">Languages <i>/6</i></p>
+          <p class="cat">Languages</p>
           <div class="chips"><span class="chip">Python</span><span class="chip">JavaScript</span><span class="chip">TypeScript</span><span class="chip">C++</span><span class="chip">Java</span><span class="chip">C</span></div>
         </div>
 
         <div class="sgroup">
-          <p class="cat">AI / ML <i>/6</i></p>
+          <p class="cat">AI / ML</p>
           <div class="chips"><span class="chip">LLMs</span><span class="chip">RAG</span><span class="chip">Prompt Engineering</span><span class="chip">AI Agents</span><span class="chip">Text-to-SQL</span><span class="chip">Scikit-learn</span></div>
         </div>
 
         <div class="sgroup">
-          <p class="cat">Backend <i>/4</i></p>
+          <p class="cat">Backend</p>
           <div class="chips"><span class="chip">Django</span><span class="chip">Node.js</span><span class="chip">REST APIs</span><span class="chip">GPT-4o-mini</span></div>
         </div>
 
         <div class="sgroup">
-          <p class="cat">Frontend <i>/5</i></p>
+          <p class="cat">Frontend</p>
           <div class="chips"><span class="chip">React.js</span><span class="chip">Next.js</span><span class="chip">Tailwind CSS</span><span class="chip">HTML / CSS</span><span class="chip">Bootstrap</span></div>
         </div>
 
         <div class="sgroup">
-          <p class="cat">Databases <i>/6</i></p>
+          <p class="cat">Databases</p>
           <div class="chips"><span class="chip">PostgreSQL</span><span class="chip">MySQL</span><span class="chip">SQLite</span><span class="chip">Turso</span><span class="chip">MongoDB</span><span class="chip">Firebase</span></div>
         </div>
 
         <div class="sgroup">
-          <p class="cat">Cloud &amp; Tools <i>/6</i></p>
+          <p class="cat">Cloud &amp; Tools</p>
           <div class="chips"><span class="chip">AWS</span><span class="chip">GCP</span><span class="chip">Vercel</span><span class="chip">Git / GitHub</span><span class="chip">Streamlit</span><span class="chip">n8n</span></div>
         </div>
 
         <div class="sgroup">
-          <p class="cat">Foundations <i>/5</i></p>
+          <p class="cat">Foundations</p>
           <div class="chips"><span class="chip">DSA</span><span class="chip">OOP</span><span class="chip">DBMS</span><span class="chip">Operating Systems</span><span class="chip">Computer Networks</span></div>
         </div>
 
@@ -450,12 +449,16 @@
       try{
         var rio=new IntersectionObserver(function(entries){
           entries.forEach(function(en){
-            if(!en.isIntersecting) return;
-            en.target.style.transitionDelay=(en.target.getAttribute("data-rd")||0)+"ms";
-            en.target.classList.add("r-in");
-            rio.unobserve(en.target);
+            var el=en.target;
+            if(en.isIntersecting){
+              el.style.transitionDelay=(el.getAttribute("data-rd")||0)+"ms";
+              el.classList.add("r-in");
+            } else {
+              el.style.transitionDelay="0ms";
+              el.classList.remove("r-in");
+            }
           });
-        },{threshold:0.12,rootMargin:"0px 0px -6% 0px"});
+        },{threshold:0.12,rootMargin:"0px 0px -8% 0px"});
         var rsecs=document.querySelectorAll("main section");
         for(var rs=0;rs<rsecs.length;rs++){
           var g=rsecs[rs].querySelectorAll(
